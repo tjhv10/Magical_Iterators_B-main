@@ -5,93 +5,173 @@
 #include <functional>
 #include <algorithm>
 #include <set>
-namespace ariel{
+
+namespace ariel {
+
+    // Forward declaration of MagicalContainer
     class MagicalContainer;
 
-    class Iterator
-    {
+    // Base iterator class
+    class Iterator {
     public:
         virtual ~Iterator() = default;
-        Iterator(){};
-        Iterator(const Iterator &other) = default;
-        Iterator &operator=(const Iterator &other) = default;
-        Iterator(Iterator &&other) = default;
-        Iterator &operator=(Iterator &&other) = default;
+        Iterator() = default;
+        Iterator(const Iterator& other) = default;
+        Iterator& operator=(const Iterator& other) = default;
+        Iterator(Iterator&& other) = default;
+        Iterator& operator=(Iterator&& other) = default;
     };
 
-    class MagicalContainer
-    {
-        private:
-            std::set<int> elements;
-            std::vector<const int *> prElem;
-            std::vector<const int *> ascIt;
-            std::vector<const int *> sideIt;
-        public:
-            
-            MagicalContainer() = default;
-            void addElement(int element);
-            void removeElement(int element);
-            size_t size() const;
-            std::set<int> getElements() const;
-            friend class PrimeIterator;
-            friend class AscendingIterator;
-            friend class SideCrossIterator;
-        class AscendingIterator : public Iterator
-        {
-        private:
-            MagicalContainer &cont;
-            size_t position;
-        public:
+    // Main MagicalContainer class
+    class MagicalContainer {
+    private:
+        std::set<int> elements;
+        std::vector<const int*> prElem;
+        std::vector<const int*> ascIt;
+        std::vector<const int*> sideIt;
 
-            AscendingIterator(MagicalContainer &cont);
+    public:
+        MagicalContainer() = default;
+
+        // Add an element to the container
+        void addElement(int element);
+
+        // Remove an element from the container
+        void removeElement(int element);
+
+        // Get the size of the container
+        size_t size() const;
+
+        // Get a set of all elements in the container
+        std::set<int> getElements() const;
+
+        // Forward declaration of nested iterator classes
+        class AscendingIterator;
+        class PrimeIterator;
+        class SideCrossIterator;
+
+        // Friend classes
+        friend class PrimeIterator;
+        friend class AscendingIterator;
+        friend class SideCrossIterator;
+
+        // Iterator for iterating over elements in ascending order
+        class AscendingIterator : public Iterator {
+        private:
+            MagicalContainer& cont;
+            size_t position;
+
+        public:
+            AscendingIterator(MagicalContainer& cont) : cont(cont), position(0) {}
+            AscendingIterator(const AscendingIterator& other) : cont(other.cont), position(other.position) {}
+
+            // Get the beginning of the iterator
             AscendingIterator begin() const;
+
+            // Get the end of the iterator
             AscendingIterator end() const;
-            bool operator==(const AscendingIterator &other) const;
-            bool operator!=(const AscendingIterator &other) const;
-            bool operator>(const AscendingIterator &other) const;
-            bool operator<(const AscendingIterator &other) const;
-            AscendingIterator &operator=(const AscendingIterator &other);
+
+            // Compare iterators for equality
+            bool operator==(const AscendingIterator& other) const;
+
+            // Compare iterators for inequality
+            bool operator!=(const AscendingIterator& other) const;
+
+            // Compare iterators for greater than
+            bool operator>(const AscendingIterator& other) const;
+
+            // Compare iterators for less than
+            bool operator<(const AscendingIterator& other) const;
+
+            // Assign an iterator to another iterator
+            AscendingIterator& operator=(const AscendingIterator& other);
+
+            // Dereference the iterator and return the value
             int operator*() const;
-            AscendingIterator & operator++();
+
+            // Move the iterator to the next element
+            AscendingIterator& operator++();
         };
 
-        class PrimeIterator : public Iterator
-        {
+        // Iterator for iterating over prime elements
+        class PrimeIterator : public Iterator {
         private:
-            MagicalContainer &cont;
+            MagicalContainer& cont;
             size_t position;
-            
+
         public:
-            PrimeIterator(MagicalContainer &cont);
+            PrimeIterator(MagicalContainer& cont) : cont(cont), position(0) {}
+            PrimeIterator(const PrimeIterator& other) : cont(other.cont), position(other.position) {}
+
+            // Check if a number is prime
             static bool isPrime(int num);
-            PrimeIterator begin();
-            PrimeIterator end();
-            bool operator==(const PrimeIterator &other) const;
-            bool operator!=(const PrimeIterator &other) const;
-            PrimeIterator &operator=(const PrimeIterator &other);
-            bool operator>(const PrimeIterator &other) const;
-            bool operator<(const PrimeIterator &other) const;
+
+            // Get the beginning of the iterator
+            PrimeIterator begin() const;
+
+            // Get the end of the iterator
+            PrimeIterator end() const;
+
+            // Compare iterators for equality
+            bool operator==(const PrimeIterator& other) const;
+
+            // Compare iterators for inequality
+            bool operator!=(const PrimeIterator& other) const;
+
+            // Assign an iterator to another iterator
+            PrimeIterator& operator=(const PrimeIterator& other);
+
+            // Compare iterators for greater than
+            bool operator>(const PrimeIterator& other) const;
+
+            // Compare iterators for less than
+            bool operator<(const PrimeIterator& other) const;
+
+            // Dereference the iterator and return the value
             int operator*() const;
-            PrimeIterator & operator++();
+
+            // Move the iterator to the next element
+            PrimeIterator& operator++();
         };
 
-        class SideCrossIterator : public Iterator
-        {
+        // Iterator for iterating over elements in a side cross pattern
+        class SideCrossIterator : public Iterator {
         private:
-            MagicalContainer &cont;
+            MagicalContainer& cont;
             size_t position;
+
         public:
-            SideCrossIterator(MagicalContainer &cont);
-            SideCrossIterator begin();
-            SideCrossIterator end();
-            bool operator==(const SideCrossIterator &other) const;
-            bool operator!=(const SideCrossIterator &other) const;
-            bool operator>(const SideCrossIterator &other) const;
-            SideCrossIterator &operator=(const SideCrossIterator &other);
-            bool operator<(const SideCrossIterator &other) const;
+            SideCrossIterator(MagicalContainer& cont) : cont(cont), position(0) {}
+            SideCrossIterator(const SideCrossIterator& other) : cont(other.cont), position(other.position) {}
+
+            // Get the beginning of the iterator
+            SideCrossIterator begin() const;
+
+            // Get the end of the iterator
+            SideCrossIterator end() const;
+
+            // Compare iterators for equality
+            bool operator==(const SideCrossIterator& other) const;
+
+            // Compare iterators for inequality
+            bool operator!=(const SideCrossIterator& other) const;
+
+            // Compare iterators for greater than
+            bool operator>(const SideCrossIterator& other) const;
+
+            // Assign an iterator to another iterator
+            SideCrossIterator& operator=(const SideCrossIterator& other);
+
+            // Compare iterators for less than
+            bool operator<(const SideCrossIterator& other) const;
+
+            // Dereference the iterator and return the value
             int operator*() const;
-            SideCrossIterator & operator++();
+
+            // Move the iterator to the next element
+            SideCrossIterator& operator++();
         };
     };
 }
+
 #endif

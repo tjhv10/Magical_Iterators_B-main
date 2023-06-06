@@ -12,6 +12,7 @@ int main() {
     container.addElement(25);
     container.addElement(9);
     container.addElement(3);
+    container.addElement(7);
     
     // Print container size
     std::cout << "Size of container: " << container.size() << std::endl;
