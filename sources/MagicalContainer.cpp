@@ -14,7 +14,7 @@ void MagicalContainer::addElement(int elem) {
     sideIt.clear();
     
     // Insert the element into the set
-    auto it = elements.insert(elem);
+    elements.insert(elem);
 
     // Check if the element is prime
     if (PrimeIterator::isPrime(elem)) {
