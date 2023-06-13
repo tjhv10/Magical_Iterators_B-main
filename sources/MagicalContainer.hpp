@@ -26,7 +26,7 @@ namespace ariel {
     class MagicalContainer {
     private:
         std::set<int> elements;
-        std::vector<const int*> prElem;
+        std::vector<const int*> primeIt;
         std::vector<const int*> ascIt;
         std::vector<const int*> sideIt;
 
@@ -41,19 +41,6 @@ namespace ariel {
 
         // Get the size of the container
         size_t size() const;
-
-        // Get a set of all elements in the container
-        std::set<int> getElements() const;
-
-        // Forward declaration of nested iterator classes
-        class AscendingIterator;
-        class PrimeIterator;
-        class SideCrossIterator;
-
-        // Friend classes
-        friend class PrimeIterator;
-        friend class AscendingIterator;
-        friend class SideCrossIterator;
 
         // Iterator for iterating over elements in ascending order
         class AscendingIterator : public Iterator {

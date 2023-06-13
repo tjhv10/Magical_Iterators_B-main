@@ -18,10 +18,10 @@ void MagicalContainer::addElement(int elem) {
 
     // Check if the element is prime
     if (PrimeIterator::isPrime(elem)) {
-        prElem.clear();
+        primeIt.clear();
         for (const int& elem : elements) {
             if (PrimeIterator::isPrime(elem))
-                prElem.push_back(&elem);
+                primeIt.push_back(&elem);
         }
     }
 
@@ -60,8 +60,8 @@ void MagicalContainer::removeElement(int elem) {
 
     // Check if the removed element was prime
     if (PrimeIterator::isPrime(elem)) {
-        auto it_pr = find(prElem.begin(), prElem.end(), &(*it));
-        prElem.erase(it_pr);
+        auto it_pr = find(primeIt.begin(), primeIt.end(), &(*it));
+        primeIt.erase(it_pr);
     }
 
     // Remove the element from the ascending iterator
@@ -233,18 +233,18 @@ MagicalContainer::PrimeIterator ariel::MagicalContainer::PrimeIterator::begin() 
 // Return the end of the prime iterator
 MagicalContainer::PrimeIterator ariel::MagicalContainer::PrimeIterator::end() const {
     PrimeIterator primeIter(cont);
-    primeIter.position = cont.prElem.size();
+    primeIter.position = cont.primeIt.size();
     return primeIter;
 }
 
 // Dereference the iterator and return the value
 int ariel::MagicalContainer::PrimeIterator::operator*() const {
-    return *(cont.prElem.at(position));
+    return *(cont.primeIt.at(position));
 }
 
 // Move the iterator to the next element
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++() {
-    if (position >= cont.prElem.size())
+    if (position >= cont.primeIt.size())
         throw std::runtime_error("Iterator is out of range.");
     ++position;
     return *this;
