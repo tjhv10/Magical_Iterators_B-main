@@ -81,7 +81,8 @@ void MagicalContainer::removeElement(int elem) {
             start++;
             end--;
         }
-    } else {
+    } 
+    else {
         sideIt.push_back(ascIt.at(0));
     }
 }

@@ -153,3 +153,30 @@ TEST_CASE("Checking operators SideCrossIterator.")
     }
     CHECK(sideCrIt1>sideCrIt2);
 }
+TEST_CASE("Adding numbers and counting agian.")
+{
+    MagicalContainer cont;
+    CHECK(cont.size()==0);
+    cont.addElement(8);
+    cont.addElement(7);
+    cont.addElement(2);
+    cont.addElement(97);
+    MagicalContainer::AscendingIterator asceIt1(cont);
+    int count =0;
+    while (*asceIt1!=97)
+    {
+        ++asceIt1;
+        count++;
+    }
+    CHECK(count==3);
+    cont.addElement(49);
+    count=0;
+    asceIt1 = asceIt1.begin();
+    while (*asceIt1!=49)
+    {
+        ++asceIt1;
+        count++;
+    }
+    CHECK(count==3);
+    CHECK(*++asceIt1==97);
+}
